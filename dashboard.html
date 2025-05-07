@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - DrillBuddy AI Training Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Poppins:wght@400;500;600&family=Raleway:wght@400;500;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        .main-content {
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+            margin-top: 20px;
+            color: #ffffff;
+            width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .dashboard-header {
+            background: rgba(13, 18, 30, 0.7);
+            border-radius: 15px;
+            padding: 25px 30px;
+            border-left: 3px solid #22d3ee;
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+        }
+
+        .dashboard-header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .dashboard-header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            background: rgba(13, 18, 30, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            border-top: 2px solid #22d3ee;
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
+        }
+
+        .dashboard-card h3 {
+            color: #ffffff;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .dashboard-card p {
+            color: #94a3b8;
+            margin: 8px 0;
+            font-size: 1rem;
+        }
+
+        .redirect-button {
+            background: linear-gradient(45deg, #22d3ee, #3b82f6);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .redirect-button:hover {
+            background: linear-gradient(45deg, #3b82f6, #22d3ee);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-light"></div>
+    <div class="ambient-light-2"></div>
+    <div class="ambient-light-3"></div>
+    <canvas id="neural-network"></canvas>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-brand">
+            <button class="sidebar-toggle" aria-label="Toggle Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <a href="index.html">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEmUlEQVR4nO1ZS0grVxj+okm8KKJ3oaCIC21xZ7sRXLvQlmuLFVqkXYiuqu7qwkVQsDYPLYWqO2kLUhR8gY/kXgrRVmutYqWgVsWNejUaqt5H1dp7e80p/2HOMCYzSbTJjKH94GeYOWfmfN95/P9/zgD/47+FKgA/ALgAcA7gewDvIEHQCYBp2GdGk0sC8CEANwAfgBfS1S09f4+IpqSksK6uLnZ0dMQODw+Zy+ViVqtViHhgFPlsAD+H6V2y53Ql8sFwOByizrRRAlaIQE5ODuvp6WFbW1vs4uKCX+k+NzdXFkI9H4yDgwNRTutCd5gEORLQ3d3NNjY22Pn5Odvc3GS9vb0sLy9PFkDTJhj7+/vKkaLv6Y5fIkwf2WjOB8NutxsuIAvAjxHIX9GVFqzT6eTThsxutysXMblVw0A99wGAcQAHAC6l6wSAGsn3RxohL+4w3o1CwNt6k7IC+ALASZRr4GWYsna9yadIQYrd0l5IscFrRM8TeQ8RycrKYsvLyywakAvt7OxULtpKvYmHkF9dXWU3BXkhoyLvPQAPqfHs7Gy2trbGCa2vr7P8/PxrUyQpKYl1dHSoCjAq8t4D8EiNPN2rzfPGxkZVAT6fTxkbdMOXgjyRJpAILfJkCwsLqgL6+/uV9Wx6Rd8n1ODKykpU5IuKijTXQFlZGa9jMplE/TEA6bokbPPz82xpaYkv4CDSD6VpNkT3lCKrYWdnh6+P1NRUNjIywjIzM8O52kMAHQCSYyZAwwT5++Tfk5OTeYaphvb2dv5OdXU1v9/e3mYlJSWRYoY9FqNwFIY8uVbCx/SsvLxclXwgEGCFhYX8vYyMDDY5Oak5zQhTU1OiDX8sBLhUyHsU5CEy0oGBAVVCs7Oz195nNdDQ0MBOT09V68/MzCjrxyTvcUoZJpkjiDzhL2rM7/erEqqvr79t2sGgE/7W2nXRFjM9PV3p/29C/nc9yNMiDlCDlCoEg0SZzWZB6BsAn4gRQ2T7VA8BX4kGKVlzu90hIpqbmwWh3wCYAbwB4DsAf2oQfyy5UaobV1BvsrS0NFZXVyeLGB8fD5lGBQUFglwL7gjKAbwijzI6OsqJ2mw2TtJisbCxsbEQzyJFYNpyvmY0+ddFitHW1naNaEtLiyxieHj4Wlltba0ynTbFi5xZcpVaAUy2qqoqHqQEjo+PWUVFhVxOi3dwcFAuPzk5UeZRb8VLwOfReIjS0lJ2dnYmk1tcXAzZG5BReqEMcK2traLMFS8BfKPu8XhYtKBTOMV2McQofbi6uuJ1+/r6xPNH8SAvJ29zc3MRie/t7bGamhqtAPS18pkIcjQaCpcac0TKPqOxnwDkSd+ziec0xQgTExOi3i7ihGf/gjzt3ixB3+NRd2hoiAuYnp6OaaapBsctiP8B4H3Vr0neTPwfoJGQ3nmKOLpRZ5SnbtSL3wIoCPO9X6luU1MTF0D76rtwoHsT0KEvq6ys5AJ2d3eVJ3SJ84OvuLhYDnaSgFdIEHwkYgHh8vJSCAggQfCm8mTD6/Uq11BC4H4YJ5AwOFUh70MCQS1BdCCBYJFE+BUnG1ajSRmOfwAXvOUGcH9gNAAAAABJRU5ErkJggg==" alt="woman-athlete">
+            </a>
+            <span class="title">DrillBuddy AI</span>
+        </div>
+        <div class="nav-links">
+            <button class="logout-btn" onclick="window.location.href='index.html'">Logout</button>
+        </div>
+    </nav>
+
+    <div class="main-content" id="mainContent" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div class="dashboard-header" style="width: 100%; text-align: center;">
+            <h1>Dashboard</h1>
+            <p>Welcome to your DrillBuddy AI dashboard! Track your progress and stay motivated.</p>
+        </div>
+
+        <div class="dashboard-cards" style="width: 100%; max-width: 1200px; margin: 0 auto;">
+            <div class="dashboard-card">
+                <h3>Training Stats</h3>
+                <p>7 workouts completed this week</p>
+                <p>143 minutes of active training</p>
+                <p>12% improvement from last week</p>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Next Scheduled Session</h3>
+                <p>HIIT Training - Tomorrow at 6:30 PM</p>
+                <p>Estimated duration: 45 minutes</p>
+                <p>Focus areas: Core strength, Cardio</p>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Nutrition Summary</h3>
+                <p>Daily caloric intake: 2,350 kcal</p>
+                <p>Protein goal: 85% completed</p>
+                <p>Hydration level: Optimal</p>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Recent Achievements</h3>
+                <p>New Personal Best: Deadlift</p>
+                <p>Streak: 5 days</p>
+                <p>Monthly Goal: 70% complete</p>
+            </div>
+        </div>
+
+        <button class="redirect-button" onclick="window.location.href='chatbot.html'" style="display: block; margin: 20px auto;">Talk to AI Assistant</button>
+    </div>
+
+    <script src="enhanced_animations_fixed_v3.js"></script>
+</body>
+</html>

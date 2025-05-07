@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Trainer - AI Training Assistant</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            background: url('path/to/neural-network-background.jpg') no-repeat center center fixed; /* Replace with your image path */
+            background-size: cover;
+        }
+        .main-content {
+            padding: 20px;
+            position: relative;
+            z-index: 2; /* Ensure content is above the canvas */
+        }
+        .redirect-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #22d3ee;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .redirect-button:hover {
+            background-color: #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    <div class="ambient-light"></div>
+    <div class="ambient-light-2"></div>
+    <div class="ambient-light-3"></div>
+
+    <div class="main-content">
+        <h1>Find Trainer</h1>
+        <p>Search for trainers that fit your needs.</p>
+        <button class="redirect-button" onclick="window.location.href='../chatbot.html'">Go to Chatbot</button>
+    </div>
+
+    <script src="/script.js"></script> <!-- Include your script for the canvas effect -->
+</body>
+</html> 

@@ -1,0 +1,1301 @@
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: #ffffff;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Canvas Background */
+#neural-network,
+#particleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.8;
+  background-color: #030712;
+}
+
+/* Particles container */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+/* Individual particles */
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: rgba(0, 255, 242, 0.8);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(0, 255, 242, 0.6);
+  pointer-events: none;
+}
+
+/* Grid Overlay */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(16, 16, 16, 0.29) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 16, 16, 0.29) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%);
+  z-index: 2;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  padding: 5rem 0 4rem;
+  text-align: center;
+  z-index: 3;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(to right, #22d3ee, #3b82f6, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: #94a3b8;
+  margin-bottom: 2rem;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.cta-button {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(to right, #22d3ee, #3b82f6);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.25);
+}
+
+.cta-button:hover {
+  background: linear-gradient(to right, #22d3ee, #60a5fa);
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Features Section */
+.features {
+  position: relative;
+  padding: 4rem 0;
+  z-index: 3;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.feature-card {
+  position: relative;
+  padding: 1.5rem;
+  background: rgba(17, 24, 39, 0.5);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.2);
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(34, 211, 238, 0.1), rgba(168, 85, 247, 0.1));
+  border-radius: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+.icon-wrapper {
+  width: 3rem;
+  height: 3rem;
+  background: rgba(34, 211, 238, 0.2);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover .icon-wrapper {
+  transform: scale(1.1);
+}
+
+.icon-wrapper svg {
+  color: #22d3ee;
+}
+
+.feature-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.feature-card p {
+  color: #94a3b8;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  position: relative;
+  background: #111827;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.2);
+  width: 90%;
+  max-width: 400px;
+  margin: 1rem;
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {}
+
+.modal-content h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(to right, #22d3ee, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.create-account-button,
+.login-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.create-account-button {
+  background: linear-gradient(to right, #22d3ee, #3b82f6);
+  color: white;
+  border: none;
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.25);
+}
+
+.create-account-button:hover {
+  background: linear-gradient(to right, #22d3ee, #60a5fa);
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.5);
+}
+
+.login-button {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(34, 211, 238, 0.5);
+}
+
+.login-button:hover {
+  background: rgba(34, 211, 238, 0.1);
+}
+
+/* Animations */
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    padding: 3rem 0 2rem;
+  }
+
+  .features {
+    padding: 2rem 0;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Auth Form Styles */
+.auth-form {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  color: #333;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+.create-account-button,
+.login-button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.create-account-button:hover,
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+.link-button {
+  background-color: transparent;
+  color: #007BFF;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: underline;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.link-button:hover {
+  color: #0056b3;
+  transform: translateY(-3px);
+}
+
+/* Additional styles for better UX */
+input::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Error message styles */
+.error-message {
+  color: #ff4e4e;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  text-align: center;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+/* Add this to your styles.css */
+.password-group {
+  position: relative;
+  /* Position relative for absolute positioning of the icon */
+}
+
+.field-icon {
+  position: absolute;
+  right: 10px;
+  /* Adjust as needed */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #007BFF;
+  /* Color for the eye icon */
+}
+
+/* Add this to your styles.css */
+.form-footer {
+  text-align: center;
+  /* Center align the footer content */
+  margin-top: 15px;
+  /* Add some space above the footer */
+}
+
+.form-footer p {
+  margin: 5px 0;
+  /* Add some margin to the paragraphs */
+}
+
+/* Base styles for mobile devices */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.auth-form {
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 90%;
+  /* Use a percentage for responsiveness */
+}
+
+/* Styles for larger screens */
+@media (min-width: 600px) {
+  .auth-form {
+    max-width: 400px;
+    /* Set a max width for larger screens */
+  }
+}
+
+h2 {
+  font-size: 1.5em;
+  /* Responsive font size */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input {
+  width: 7%;
+  /* Full width for inputs */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Button styles */
+.create-account-button,
+.login-button {
+  width: 100%;
+  /* Full width for buttons */
+}
+
+/* Responsive adjustments for links */
+.link-button {
+  display: inline-block;
+  /* Make links inline-block for better alignment */
+  margin-top: 10px;
+  /* Add some space above the link */
+}
+
+/* Media queries for larger devices */
+@media (min-width: 768px) {
+  .auth-form {
+    padding: 30px;
+    /* Increase padding for larger screens */
+  }
+
+  h2 {
+    font-size: 2em;
+    /* Larger font size for headings */
+  }
+}
+
+img {
+  max-width: 100%;
+  /* Responsive images */
+  height: auto;
+}
+
+/* Add this to your styles.css */
+.create-account-button {
+  background-color: #007BFF;
+  /* Primary color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  /* Full width for buttons */
+  transition: background-color 0.3s;
+}
+
+.create-account-button:hover {
+  background-color: #0056b3;
+  /* Darker shade on hover */
+}
+
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #1e293b;
+  /* Dark background */
+  color: white;
+  /* Text color */
+}
+
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 350px;
+  background: #0f172a;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+  transition: transform 0.3s ease;
+}
+
+.sidebar.active {
+  transform: translateX(0);
+}
+
+/* Sidebar Header */
+.sidebar-header {
+  padding: 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h3 {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Menu Items */
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 25px;
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border-radius: 30px;
+  margin: 5px 15px;
+  background: transparent;
+}
+
+.menu-item:hover {
+  background: linear-gradient(90deg, #22d3ee, #3b82f6);
+}
+
+/* Main Content Styles */
+.main-content {
+  margin-left: 350px;
+  padding: 20px;
+  min-height: calc(100vh - 60px);
+  margin-top: 60px;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.sidebar-closed {
+  margin-left: 0;
+}
+
+/* Overlay for mobile sidebar */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+}
+
+.sidebar-overlay.active {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 15px;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+}
+
+/* Button Styles */
+.cta-button,
+.create-account-button,
+.link-button {
+  background-color: #22d3ee;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cta-button:hover,
+.create-account-button:hover,
+.link-button:hover {}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background-color: #1e293b;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+}
+
+/* Form Styles */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    transform: translateX(-100%);
+  }
+
+  .main-content {
+    margin-left: 0;
+    /* No margin on mobile */
+  }
+}
+
+/* Ambient Light Effect */
+.ambient-light,
+.ambient-light-2,
+.ambient-light-3 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  /* Behind other content */
+}
+
+.ambient-light {
+  background: rgba(34, 211, 238, 0.1);
+  animation: ambient-light-animation 5s infinite alternate;
+}
+
+.ambient-light-2 {
+  background: rgba(255, 255, 255, 0.1);
+  animation: ambient-light-animation 7s infinite alternate;
+}
+
+.ambient-light-3 {
+  position: fixed;
+  /* Fixed position to cover the entire viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 255, 255, 0.1);
+  /* Light cyan color with transparency */
+  pointer-events: none;
+  /* Allow clicks to pass through */
+  animation: ambientEffect 5s infinite alternate;
+  /* Animation for effect */
+}
+
+@keyframes ambient-light-animation {
+  0% {
+    opacity: 0.1;
+  }
+
+  100% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes ambientEffect {
+  0% {
+    opacity: 0.1;
+    /* Start with low opacity */
+  }
+
+  100% {
+    opacity: 0.3;
+    /* End with higher opacity */
+  }
+}
+
+.slogan-container {
+  text-align: center;
+  /* Center align the container */
+  margin: 20px 0;
+  /* Margin for spacing */
+}
+
+.slogan {
+  font-family: 'Raleway', sans-serif;
+  /* Use Raleway font */
+  font-size: 2rem;
+  /* Adjust size as needed */
+  color: #ffffff;
+  /* White color for contrast */
+  font-weight: 600;
+  /* Bold weight for emphasis */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  /* Subtle shadow for depth */
+  transition: transform 0.3s ease, color 0.3s ease;
+  /* Smooth transition for hover effect */
+}
+
+.slogan:hover {
+  transform: scale(1.05);
+  /* Slightly enlarge on hover */
+  color: #ffcc00;
+  /* Change color on hover */
+}
+
+.signup-button {
+  display: inline-block;
+  /* Make it an inline block for better alignment */
+  padding: 10px 15px;
+  /* Padding for the button */
+  background-color: #00bfff;
+  /* Button background color */
+  color: #fff;
+  /* Button text color */
+  border: none;
+  /* Remove border */
+  border-radius: 5px;
+  /* Rounded corners */
+  text-decoration: none;
+  /* Remove underline */
+  text-align: center;
+  /* Center text */
+  transition: background-color 0.3s;
+  /* Smooth transition */
+  margin-top: 10px;
+  /* Space above the button */
+}
+
+.signup-button:hover {
+  background-color: #009acd;
+  /* Darker shade on hover */
+}
+
+.chat-container {
+  max-width: 800px;
+  /* Limit width for better readability */
+  margin: 0 auto;
+  /* Center the chat container */
+  padding: 20px;
+  /* Add padding */
+  border-radius: 10px;
+  /* Rounded corners */
+  background: rgba(0, 0, 0, 0.7);
+  /* Semi-transparent background */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  /* Shadow for depth */
+}
+
+.chat-header {
+  border-bottom: 2px solid #00bfff;
+  /* Bottom border for header */
+  padding-bottom: 10px;
+  /* Space below header */
+  margin-bottom: 20px;
+  /* Space below header */
+}
+
+.chat-messages {
+  max-height: 400px;
+  /* Limit height for messages */
+  overflow-y: auto;
+  /* Scrollable messages */
+  padding: 10px;
+  /* Padding for messages */
+  border-radius: 8px;
+  /* Rounded corners */
+  background: rgba(255, 255, 255, 0.1);
+  /* Light background for messages */
+}
+
+.message {
+  padding: 10px;
+  /* Padding for messages */
+  border-radius: 8px;
+  /* Rounded corners */
+  margin: 5px 0;
+  /* Space between messages */
+  position: relative;
+  /* Position for pseudo-elements */
+}
+
+.user-message {
+  background: #00bfff;
+  /* User message background */
+  color: #fff;
+  /* User message text color */
+  align-self: flex-end;
+  /* Align user messages to the right */
+}
+
+.bot-message {
+  background: #4caf50;
+  /* Bot message background */
+  color: #fff;
+  /* Bot message text color */
+  align-self: flex-start;
+  /* Align bot messages to the left */
+}
+
+.typing-indicator {
+  font-style: italic;
+  /* Italic style for typing indicator */
+  color: #ccc;
+  /* Light color for indicator */
+  margin: 10px 0;
+  /* Space around indicator */
+}
+
+button {
+  background: #00bfff;
+  /* Button background color */
+  color: #fff;
+  /* Button text color */
+  border: none;
+  /* Remove border */
+  border-radius: 5px;
+  /* Rounded corners */
+  padding: 10px 15px;
+  /* Padding for buttons */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  transition: background-color 0.3s;
+  /* Smooth transition */
+}
+
+button:hover {
+  background-color: #e3e3e3;
+  /* Change background color on hover */
+}
+
+@media (max-width: 600px) {
+  .chat-container {
+    width: 90%;
+    /* Full width on small screens */
+  }
+
+  .chat-messages {
+    max-height: 300px;
+    /* Adjust height for smaller screens */
+  }
+}
+
+.signup-modal {
+  display: flex;
+  /* Use flexbox for centering */
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
+  position: fixed;
+  /* Fixed position */
+  top: 0;
+  /* Align to the top */
+  left: 0;
+  /* Align to the left */
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  background-color: rgba(0, 0, 0, 0.7);
+  /* Semi-transparent background */
+  z-index: 1000;
+  /* Ensure it appears above other content */
+}
+
+.signup-modal .modal-content {
+  background-color: #fff;
+  /* White background for the modal */
+  border-radius: 10px;
+  /* Rounded corners */
+  padding: 20px;
+  /* Padding for spacing */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  /* Shadow for depth */
+  width: 300px;
+  /* Set a fixed width */
+  text-align: center;
+  /* Center text */
+}
+
+.signup-modal input {
+  width: 100%;
+  /* Full width for inputs */
+  padding: 10px;
+  /* Padding for inputs */
+  margin: 10px 0;
+  /* Margin for spacing */
+  border: 1px solid #ccc;
+  /* Border for inputs */
+  border-radius: 5px;
+  /* Rounded corners */
+}
+
+.signup-modal button {
+  width: 100%;
+  /* Full width for button */
+  padding: 10px;
+  /* Padding for button */
+  background-color: #00bfff;
+  /* Button background color */
+  color: #fff;
+  /* Button text color */
+  border: none;
+  /* Remove border */
+  border-radius: 5px;
+  /* Rounded corners */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  transition: background-color 0.3s;
+  /* Smooth transition */
+}
+
+.signup-modal button:hover {
+  background-color: #009acd;
+  /* Darker shade on hover */
+}
+
+/* Style for the Remember Me checkbox */
+.form-group {
+  display: flex;
+  align-items: center;
+  /* Align items vertically */
+  margin-bottom: 15px;
+  /* Space between form groups */
+}
+
+.form-group input[type="checkbox"] {
+  margin-right: 5px;
+  /* Adjust this value to bring the checkbox closer to the label */
+}
+
+/* Style for the Remember Me text */
+.form-group label {
+  font-size: 1rem;
+  /* Adjust font size */
+  color: #00bfff;
+  /* Change text color */
+}
+
+/* Style for the Sign Up link */
+.form-footer {
+  text-align: center;
+  /* Center align the footer content */
+  margin-top: 10px;
+  /* Space above the footer */
+}
+
+.link-button {
+  background-color: transparent;
+  /* Make it transparent */
+  color: #00bfff;
+  /* Change text color */
+  border: none;
+  /* Remove border */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  font-size: 1rem;
+  /* Font size */
+  text-decoration: underline;
+  /* Underline for emphasis */
+  transition: color 0.3s, transform 0.3s;
+  /* Smooth color and transform transition */
+}
+
+.link-button:hover {
+  color: #009acd;
+  /* Change color on hover */
+  transform: scale(1.05);
+  /* Slightly enlarge on hover */
+}
+
+/* Hover effect for the Forgot Password link */
+.forgot-password {
+
+  /* Change text color */
+  text-decoration: underline;
+  /* Underline for emphasis */
+  transition: color 0.3s, transform 0.3s;
+  /* Smooth color and transform transition */
+}
+
+.forgot-password:hover {
+
+  /* Change color on hover */
+  transform: scale(1.05);
+  /* Slightly enlarge on hover */
+}
+
+/* Align the Remember Me checkbox with its label */
+.form-group {
+  display: flex;
+  align-items: center;
+  /* Align items vertically */
+  margin-bottom: 15px;
+  /* Space between form groups */
+}
+
+.form-group input[type="checkbox"] {
+  margin-right: 5px;
+  /* Space between checkbox and label */
+}
+
+/* Remove hover effects from buttons and links */
+.link-button,
+.create-account-button,
+.login-button,
+.forgot-password {
+  transition: none;
+  /* Remove transition effects */
+}
+
+/* Style for the buttons without hover effects */
+.create-account-button,
+.login-button {
+  background-color: #00bfff;
+  /* Button background color */
+  color: #fff;
+  /* Button text color */
+  border: none;
+  /* Remove border */
+  border-radius: 5px;
+  /* Rounded corners */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+}
+
+/* Style for the Sign Up link */
+.link-button {
+  background-color: transparent;
+  /* Make it transparent */
+  color: #00bfff;
+  /* Change text color */
+  border: none;
+  /* Remove border */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  font-size: 1rem;
+  /* Font size */
+  text-decoration: underline;
+  /* Underline for emphasis */
+}
+
+/* Style for the Forgot Password link */
+.forgot-password {
+
+  /* Change text color */
+  text-decoration: underline;
+  /* Underline for emphasis */
+}
+
+.site-footer {
+  background-color: #0B0F19;
+  color: #E5E7EB;
+  display: flex;
+  flex-direction: row;
+  padding: 40px 1rem;
+  font-family: 'Inter', sans-serif;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 10;
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  margin-right: 2rem;
+}
+
+.brand-heading {
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #FFFFFF;
+  background: linear-gradient(to right, #22d3ee, #3b82f6, #a855f7);
+  background-clip: border-box;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.brand-tagline {
+  margin: 0.5rem 0;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.icon-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 0.5rem;
+}
+
+.icon-link {
+  color: #E5E7EB;
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: color 0.3s;
+}
+
+.icon-link:hover {
+  color: #FFFFFF;
+}
+
+.nav-sections {
+  display: flex;
+  flex: 2;
+  justify-content: space-between;
+  margin-left: 2rem;
+}
+
+.nav-column {
+  flex: 1;
+}
+
+.nav-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #FFFFFF;
+  background: linear-gradient(to right, #22d3ee, #3b82f6, #a855f7);
+  background-clip: border-box;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.nav-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-column li {
+  margin: 0.5rem 0;
+}
+
+.nav-column a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  transition: color 0.3s, text-decoration 0.3s;
+}
+
+.nav-column a:hover {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+.nav-separator {
+  border: none;
+  border-top: 1px solid #9CA3AF;
+  margin: 1rem 0;
+}
+
+.footer-closing {
+  text-align: center;
+  margin-top: 1rem;
+  flex-basis: 100%;
+}
+
+.footer-credit {
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  margin: 1rem 0;
+  background: linear-gradient(to right, #22d3ee, #3b82f6, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .site-footer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-info {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .nav-sections {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+  }
+
+  .nav-column {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Hover effect on SVG icons */
+.icon-link svg:hover {
+  color: #1DA1F2;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}

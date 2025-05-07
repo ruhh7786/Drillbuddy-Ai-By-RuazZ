@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Training Assistant</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script type="module" src="firebaseAuth.js"></script>
+</head>
+<body>
+  <div class="ambient-light-3"></div>
+  <canvas id="particleCanvas"></canvas>
+  
+  <div class="grid-overlay"></div>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="container">
+      <h1 class="title">Your Advanced AI Training Assistant</h1>
+      <p class="subtitle">Analyzing training patterns...</p>
+      <button class="cta-button" onclick="openModal()">Start My Training Journey</button>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="features">
+    <div class="container">
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a7 7 0 0 1 7 7v11h-2v-3H7v3H5V10a7 7 0 0 1 7-7Z"></path><path d="M10 13a2 2 0 1 1 4 0v3h-4v-3Z"></path></svg>
+          </div>
+          <h3>Neural Training</h3>
+          <p>AI-powered workout optimization tailored to your unique patterns and goals.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 3 18 18"></path><path d="M3 9v6h4l5 5v-7.5"></path><path d="M13.5 4.5 19 10"></path><path d="M17 7.5 19 10"></path></svg>
+          </div>
+          <h3>Performance Analytics</h3>
+          <p>Real-time tracking and predictive analysis for optimal results.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <h3>Recovery Protocol</h3>
+          <p>Scientifically optimized rest and regeneration algorithms.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path></svg>
+          </div>
+          <h3>Security Protocol</h3>
+          <p>Military-grade encryption and advanced data protection systems.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auth Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-overlay" onclick="closeModal()"></div>
+    <div class="modal-content">
+      <button class="close-button" onclick="closeModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+      </button>
+      
+      <!-- Login Form -->
+      <div id="loginForm" class="auth-form" style="display: none;">
+        <h2>Welcome Back</h2>
+        <form onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <input type="email" id="loginEmail" placeholder="Email" required>
+          </div>
+          <div class="form-group password-group">
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <i class="fa fa-fw fa-eye field-icon toggle-password" onclick="togglePassword('loginPassword')"></i>
+          </div>
+          <div class="form-group">
+            <input type="checkbox" id="rememberMe">
+            <label for="rememberMe">Remember Me</label>
+          </div>
+          <button type="submit" class="create-account-button">Login</button>
+        </form>
+        <div class="form-footer">
+          <p>Don't have an account? 
+            <button class="link-button" onclick="showSignup()">Sign Up</button>
+          </p>
+          <p>
+            <button class="forgot-password" onclick="forgotPassword()">Forgot Password?</button>
+          </p>
+        </div>
+      </div>
+
+      <!-- Signup Form -->
+      <div id="signupForm" class="auth-form">
+        <h2>Create Account</h2>
+        <form onsubmit="handleSignup(event)">
+          <div class="form-group">
+            <input type="text" id="signupName" placeholder="Full Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" id="signupEmail" placeholder="Email" required>
+          </div>
+          <div class="form-group password-group">
+            <input type="password" id="signupPassword" placeholder="Password (min. 6 characters)" required>
+            <i class="fa fa-fw fa-eye field-icon toggle-password" onclick="togglePassword('signupPassword')"></i>
+          </div>
+          <div class="form-group">
+            <input type="checkbox" id="rememberMeSignup">
+            <label for="rememberMeSignup">Remember Me</label>
+          </div>
+          <button type="submit" class="create-account-button">Create Account</button>
+        </form>
+        <div class="form-footer">
+          <p>Already have an account? 
+            <button class="link-button" onclick="showLogin()">Login</button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="typing-indicator" id="typingIndicator" style="display: none;">
+    <span>...</span>
+  </div>
+
+  <script>
+    function openModal() {
+      // Show the signup form by default
+      document.getElementById('signupForm').style.display = 'block';
+      document.getElementById('loginForm').style.display = 'none';
+    }
+
+    function showSignup() {
+      document.getElementById('signupForm').style.display = 'block';
+      document.getElementById('loginForm').style.display = 'none';
+    }
+
+    function showLogin() {
+      document.getElementById('signupForm').style.display = 'none';
+      document.getElementById('loginForm').style.display = 'block';
+    }
+  </script>
+
+  <script src="script.js"></script>
+  <script src="firebaseAuth.js"></script>
+
+  <footer class="site-footer">
+    <div class="footer-info">
+      <h2 class="brand-heading">
+        <span class="brand-name">DrillBuddy AI</span>
+      </h2>
+      <p class="brand-tagline">Making fitness accessible and personalized with the power of AI.</p>
+      <div class="icon-group">
+        <a href="#" class="icon-link" aria-label="Facebook">
+          <!-- Facebook SVG -->
+          <!-- (same as original) -->
+        </a>
+        <a href="#" class="icon-link" aria-label="Instagram">
+          <!-- Instagram SVG -->
+          <!-- (same as original) -->
+        </a>
+        <a href="#" class="icon-link" aria-label="Twitter (X)">
+          <!-- Twitter SVG -->
+          <!-- (same as original) -->
+        </a>
+      </div>
+    </div>
+  
+    <div class="nav-sections">
+      <div class="nav-column">
+        <h3 class="nav-title">COMPANY</h3>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Jobs</a></li>
+          <li><a href="#">Partners</a></li>
+        </ul>
+      </div>
+      <div class="nav-column">
+        <h3 class="nav-title">SUPPORT</h3>
+        <ul>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+        </ul>
+      </div>
+      <div class="nav-column">
+        <h3 class="nav-title">FEATURES</h3>
+        <ul>
+          <li><a href="#">Workout Plans</a></li>
+          <li><a href="#">Nutrition</a></li>
+          <li><a href="#">Recovery</a></li>
+          <li><a href="#">Progress Tracking</a></li>
+        </ul>
+      </div>
+      <div class="nav-column">
+        <h3 class="nav-title">LEGAL</h3>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+  
+    <hr class="nav-separator">
+    <div class="footer-closing">
+      <p class="footer-credit">© 2025 DrillBuddy. All rights reserved.</p>
+    </div>
+  </footer>
+  
+</body>
+</html> 
